@@ -7,30 +7,30 @@ import ImagePopup from "./ImagePopup";
 
 
 function App() {
-  const [isEditProfilePopupOpen, SetIsEditProfilePopupOpen] =
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
-  const [isAddPlacePopupOpen, SetIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, SetIsEditAvatarPopupOpen] =
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
-  const [selectedCard, SetSelectedCard] = React.useState();
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
     function handleEditProfileClick() {
-      SetIsEditProfilePopupOpen(true)
+      setIsEditProfilePopupOpen(true)
     }
     function handleAddPlaceClick() {
-      SetIsAddPlacePopupOpen(true)
+      setIsAddPlacePopupOpen(true)
     }
     function handleEditAvatarClick() {
-      SetIsEditAvatarPopupOpen(true)
+      setIsEditAvatarPopupOpen(true)
     }
     function handleCardClick(card) {
-      SetSelectedCard(card)
+      setSelectedCard(card)
     }
     function closeAllPopups() {
-      SetIsEditProfilePopupOpen(false)
-      SetIsAddPlacePopupOpen(false)
-      SetIsEditAvatarPopupOpen(false)
-      SetSelectedCard(false)
+      setIsEditProfilePopupOpen(false)
+      setIsAddPlacePopupOpen(false)
+      setIsEditAvatarPopupOpen(false)
+      setSelectedCard(null)
     }
   return (
     <div className="wrap">

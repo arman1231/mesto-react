@@ -3,7 +3,7 @@ import closeSvg from "../images/close.svg";
 
 export default function ImagePopup({card, onClose}) {
   return (
-    <div className={`modal image-modal ${card ? `modal_opened` : `` }`}>
+    <div className={`modal image-modal ${card && 'modal_opened'}`}>
       <div className="image-modal__wrapper">
         <button className="modal__close-btn" type="button" onClick={onClose}>
           <img

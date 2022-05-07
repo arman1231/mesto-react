@@ -5,9 +5,9 @@ import { api } from "../utils/api";
 import Card from "./Card";
 
 export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
@@ -19,16 +19,15 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
         setUserAvatar(res.avatar);
       })
       .catch((error) => console.log(error));
-  });
 
-  React.useEffect(() => {
-    api
+      api
       .getInitialCards()
       .then((res) => {
         setCards(res);
       })
       .catch((error) => console.log(error));
   }, []);
+
   return (
     <main className="content page__content">
       <section className="profile">
@@ -72,7 +71,7 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
       <section className="gallery page__gallery">
         {cards.map((card) => {
           return (
-            <Card card={card} onCardClick={onCardClick} />
+            <Card card={card} onCardClick={onCardClick} key={card._id}/>
           );
         })}
       </section>

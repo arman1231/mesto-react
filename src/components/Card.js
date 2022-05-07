@@ -7,7 +7,7 @@ export default function Card({card, onCardClick}) {
     onCardClick(card);
   }
   return (
-    <div className="gallery__item" key={card._id}>
+    <div className="gallery__item">
     <button className="gallery__delete-button">
       <img
         className="gallery__delete-icon"
