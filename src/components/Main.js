@@ -3,23 +3,12 @@ import pencilSvg from "../images/pencil.svg";
 import crossSvg from "../images/cross.svg";
 import { api } from "../utils/api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext"
 
 export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
-
+  const currentUser = React.useContext(CurrentUserContext);
   React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch((error) => console.log(error));
-
       api
       .getInitialCards()
       .then((res) => {
@@ -36,11 +25,11 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
             className="profile__edit-user-image-button"
             type="button"
             onClick={onEditAvatar}
-            style={{ backgroundImage: `url(${userAvatar})` }}
+            style={{ backgroundImage: `url(${currentUser.avatar})` }}
           ></button>
           <div className="profile__credentials">
             <div className="profile__info">
-              <h1 className="profile__name">{userName}</h1>
+              <h1 className="profile__name">{currentUser.name}</h1>
               <button
                 className="profile__edit-btn"
                 type="button"
@@ -53,7 +42,7 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
                 />
               </button>
             </div>
-            <p className="profile__title">{userDescription}</p>
+            <p className="profile__title">{currentUser.about}</p>
           </div>
         </div>
         <button

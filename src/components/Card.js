@@ -1,14 +1,23 @@
 import React from 'react'
 import trashbinSvg from "../images/trashbin.svg";
 import heartSvg from "../images/heart.svg";
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Card({card, onCardClick}) {
+  const currentUser = React.useContext(CurrentUserContext);
+  const isOwn = card.owner._id === currentUser._id;
+  const cardDeleteButtonClassName = (
+    `gallery__delete-button ${isOwn ? 'gallery__delete-button_visible' : 'gallery__delete-button_hidden'}`
+  );
+  const isLiked = card.likes.some(i => i._id === currentUser._id);
+  const cardLikeButtonClassName = `...`;
+
   function handleClick() {
     onCardClick(card);
   }
   return (
     <div className="gallery__item">
-    <button className="gallery__delete-button">
+    <button className={cardDeleteButtonClassName}>
       <img
         className="gallery__delete-icon"
         src={trashbinSvg}
