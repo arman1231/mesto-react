@@ -18,15 +18,15 @@
 Это продолжение проекта Mesto с применением библиотеки React.JS.
 С предыдущей версией прокта в аспекте ООП и описанием реализованных функций можно ознакомиться здесь [https://github.com/arman1231/mesto](https://github.com/arman1231/mesto)
 
+## Ссылка
+Перейти на [site]
+* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+
 ### UPD. 07.05.2022 (Перенос проекта на React.JS)
   1) Портирована разметка и стили на JSX
   2) Вынесены основные компоненты
   3) Настроена работа модальных окон
   4) Подключено API
-
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
-## Ссылка
-Перейти на [site]
 
 ## Автор
 -Арман Черхаров (Arman Cherkharov)

@@ -3,17 +3,20 @@ import trashbinSvg from "../images/trashbin.svg";
 import heartSvg from "../images/heart.svg";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export default function Card({card, onCardClick}) {
+export default function Card({card, onCardClick, onCardLike}) {
   const currentUser = React.useContext(CurrentUserContext);
   const isOwn = card.owner._id === currentUser._id;
   const cardDeleteButtonClassName = (
     `gallery__delete-button ${isOwn ? 'gallery__delete-button_visible' : 'gallery__delete-button_hidden'}`
   );
   const isLiked = card.likes.some(i => i._id === currentUser._id);
-  const cardLikeButtonClassName = `...`;
+  const cardLikeButtonClassName = `gallery__button ${isLiked ? 'gallery__button_active' : '' }`;
 
   function handleClick() {
     onCardClick(card);
+  }
+  function handleLikeClick() {
+    onCardLike(card)
   }
   return (
     <div className="gallery__item">
@@ -28,7 +31,7 @@ export default function Card({card, onCardClick}) {
     <div className="gallery__info">
       <p className="gallery__image-title">{card.name}</p>
       <div className="gallery__like-section">
-        <button className="gallery__button" type="button">
+        <button className={cardLikeButtonClassName} type="button" onClick={handleLikeClick}>
           <img className="gallery__icon" src={heartSvg} alt="Лайк" />
         </button>
         <span className="gallery__like-counter">{card.likes.length}</span>
