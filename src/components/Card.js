@@ -3,7 +3,7 @@ import trashbinSvg from "../images/trashbin.svg";
 import heartSvg from "../images/heart.svg";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export default function Card({card, onCardClick, onCardLike}) {
+export default function Card({card, onCardClick, onCardLike, onCardDelete}) {
   const currentUser = React.useContext(CurrentUserContext);
   const isOwn = card.owner._id === currentUser._id;
   const cardDeleteButtonClassName = (
@@ -18,9 +18,13 @@ export default function Card({card, onCardClick, onCardLike}) {
   function handleLikeClick() {
     onCardLike(card)
   }
+  function handleDeleteClick() {
+    onCardDelete(card)
+  }
+
   return (
     <div className="gallery__item">
-    <button className={cardDeleteButtonClassName}>
+    <button className={cardDeleteButtonClassName} onClick={handleDeleteClick}>
       <img
         className="gallery__delete-icon"
         src={trashbinSvg}

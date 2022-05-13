@@ -12,12 +12,26 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    
+
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.setLike(card._id, !isLiked).then((newCard) => { console.log(newCard);
+    api.setLike(card._id, !isLiked).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     });
 }
+
+  function handleCardDelete(card) {
+    const isOwn = card.owner._id === currentUser._id;
+    console.log(cards);
+    api.deleteCard(card._id).then((res) => {
+      console.log(cards);
+      //После запроса в API, обновите стейт cards с помощью метода filter: создайте копию массива, исключив из него удалённую карточку.
+      // setCards((state) => state.filter((c) => {
+
+      // }))
+    }).finally(()=> {
+      console.log(cards);
+    })
+  }
 
   React.useEffect(() => {
       api
@@ -71,7 +85,7 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
       <section className="gallery page__gallery">
         {cards.map((card) => {
           return (
-            <Card card={card} onCardLike={handleCardLike} onCardClick={onCardClick} key={card._id}/>
+            <Card card={card} onCardLike={handleCardLike} onCardDelete={handleCardDelete} onCardClick={onCardClick} key={card._id}/>
           );
         })}
       </section>

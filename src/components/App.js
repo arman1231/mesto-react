@@ -6,6 +6,7 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -57,36 +58,18 @@ function App() {
             onCardClick={handleCardClick}
           />
           <Footer />
-          <PopupWithForm
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+
+          </EditProfilePopup>
+          {/* <PopupWithForm
             name="edit-profile"
             title="Редактировать профиль"
             buttonText="Сохранить"
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
           >
-            <fieldset className="modal__user-data">
-              <input
-                className="modal__input"
-                id="modal__name"
-                type="text"
-                name="user-name"
-                minLength="2"
-                maxLength="40"
-                required
-              />
-              <span className="modal__input-error user-name-error"></span>
-              <input
-                className="modal__input"
-                id="modal__title"
-                type="text"
-                name="user-title"
-                minLength="2"
-                maxLength="200"
-                required
-              />
-              <span className="modal__input-error user-title-error"></span>
-            </fieldset>
-          </PopupWithForm>
+
+          </PopupWithForm> */}
           <PopupWithForm
             name="add-new-place"
             title="Новое место"
