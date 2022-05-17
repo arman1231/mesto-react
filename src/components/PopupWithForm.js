@@ -1,7 +1,7 @@
 import React from "react";
 import closeSvg from "../images/close.svg";
 
-export default function PopupWithForm({name, title, buttonText, children, isOpen, onClose}) {
+export default function PopupWithForm({name, title, buttonText, children, isOpen, onClose, onSubmit}) {
   return (
     <div>
       <div className={`modal modal_${name} ${isOpen ? 'modal_opened' : ""}`}>
@@ -14,7 +14,7 @@ export default function PopupWithForm({name, title, buttonText, children, isOpen
             />
           </button>
           <h2 className="modal__heading">{title}</h2>
-          <form className="modal__form" name={name} action="#" noValidate>
+          <form className="modal__form" name={name} action="#" onSubmit={onSubmit} noValidate>
             {children}
             <fieldset className="modal__handlers">
             <button className="modal__submit" type="submit">

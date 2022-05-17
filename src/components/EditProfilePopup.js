@@ -1,53 +1,71 @@
 import React from "react";
-import closeSvg from "../images/close.svg";
+import PopupWithForm from "./PopupWithForm";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function EditProfilePopup({isOpen, onClose}) {
-  const [name, setName] = React.useState();
-  const [description, setDescription] = React.useState();
+export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+  const [name, setName] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const currentUser = React.useContext(CurrentUserContext);
+
+  // После загрузки текущего пользователя из API
+  // его данные будут использованы в управляемых компонентах.
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  }, [currentUser]);
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+  function handleChangeAbout(e) {
+    setDescription(e.target.value);
+  }
+  function handleSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault();
+  
+    // Передаём значения управляемых компонентов во внешний обработчик
+    onUpdateUser({
+      name,
+      about: description,
+    });
+  } 
 
   return (
-    <div>
-      <div className={`modal modal_edit-profile ${isOpen ? 'modal_opened' : ""}`}>
-        <div className="modal__container">
-          <button className="modal__close-btn" type="button" onClick={onClose}>
-            <img
-              className="modal__close-icon"
-              src={closeSvg}
-              alt="кнопка закрыть"
-            />
-          </button>
-          <h2 className="modal__heading">Редактировать профиль</h2>
-          <form className="modal__form" name="edit-profile" action="#" noValidate>
-          <fieldset className="modal__user-data">
-              <input
-                className="modal__input"
-                id="modal__name"
-                type="text"
-                name="user-name"
-                minLength="2"
-                maxLength="40"
-                required
-              />
-              <span className="modal__input-error user-name-error"></span>
-              <input
-                className="modal__input"
-                id="modal__title"
-                type="text"
-                name="user-title"
-                minLength="2"
-                maxLength="200"
-                required
-              />
-              <span className="modal__input-error user-title-error"></span>
-            </fieldset>
-            <fieldset className="modal__handlers">
-            <button className="modal__submit" type="submit">
-            Сохранить
-            </button>
-          </fieldset>
-          </form>
-        </div>
-      </div>
-    </div>
+    <PopupWithForm
+      name="edit-profile"
+      title="Редактировать профиль"
+      buttonText="Сохранить"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+    >
+      <fieldset className="modal__user-data">
+        <input
+          className="modal__input"
+          id="modal__name"
+          type="text"
+          name="user-name"
+          minLength="2"
+          maxLength="40"
+          value={name || ""}
+          onChange={handleChangeName}
+          required
+        />
+        <span className="modal__input-error user-name-error"></span>
+        <input
+          className="modal__input"
+          id="modal__title"
+          type="text"
+          name="user-title"
+          minLength="2"
+          maxLength="200"
+          value={description || ""}
+          onChange={handleChangeAbout}
+          required
+        />
+        <span className="modal__input-error user-title-error"></span>
+      </fieldset>
+    </PopupWithForm>
   );
 }

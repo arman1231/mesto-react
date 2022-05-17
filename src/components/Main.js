@@ -1,46 +1,11 @@
 import React from "react";
 import pencilSvg from "../images/pencil.svg";
 import crossSvg from "../images/cross.svg";
-import { api } from "../utils/api";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext"
 
-export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
-  const [cards, setCards] = React.useState([]);
+export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCardLike, onCardDelete}) {
   const currentUser = React.useContext(CurrentUserContext);
-
-  function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-
-    // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.setLike(card._id, !isLiked).then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
-}
-
-  function handleCardDelete(card) {
-    const isOwn = card.owner._id === currentUser._id;
-    console.log(cards);
-    api.deleteCard(card._id).then((res) => {
-      console.log(cards);
-      //После запроса в API, обновите стейт cards с помощью метода filter: создайте копию массива, исключив из него удалённую карточку.
-      // setCards((state) => state.filter((c) => {
-
-      // }))
-    }).finally(()=> {
-      console.log(cards);
-    })
-  }
-
-  React.useEffect(() => {
-      api
-      .getInitialCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((error) => console.log(error));
-  }, []);
 
   return (
     <main className="content page__content">
@@ -85,7 +50,7 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
       <section className="gallery page__gallery">
         {cards.map((card) => {
           return (
-            <Card card={card} onCardLike={handleCardLike} onCardDelete={handleCardDelete} onCardClick={onCardClick} key={card._id}/>
+            <Card card={card} onCardLike={onCardLike} onCardDelete={onCardDelete} onCardClick={onCardClick} key={card._id}/>
           );
         })}
       </section>

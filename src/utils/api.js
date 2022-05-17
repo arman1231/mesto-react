@@ -16,13 +16,13 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  setUserInfo({ userName, userInfo }) {
+  setUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: userName,
-        about: userInfo,
+        name: name,
+        about: about,
       }),
     }).then(this._checkResponse);
   }
