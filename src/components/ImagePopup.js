@@ -12,7 +12,7 @@ export default function ImagePopup({card, onClose}) {
             alt="кнопка закрыть"
           />
         </button>
-        <img className="image-modal__img" src={card ? card.link : `#`} />
+        <img className="image-modal__img" src={card ? card.link : `#`} alt={card?.name} />
         <p className="image-modal__caption"></p>
       </div>
     </div>
