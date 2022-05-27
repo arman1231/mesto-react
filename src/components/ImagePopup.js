@@ -26,7 +26,7 @@ export default function ImagePopup({ card, onClose }) {
           src={card ? card.link : `#`}
           alt={card?.name}
         />
-        <p className="image-modal__caption"></p>
+        <p className="image-modal__caption">{card?.name}</p>
       </div>
     </div>
   );
