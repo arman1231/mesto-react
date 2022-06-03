@@ -45,12 +45,16 @@ function App() {
     isImagePopupOpen,
   ]);
   React.useEffect(() => {
+    setIsLoading(true);
     api
       .getInitialCards()
       .then((res) => {
         setCards(res);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setIsLoading(false)
+      });
   }, []);
   React.useEffect(() => {
     api
@@ -184,6 +188,7 @@ function App() {
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
             cards={cards}
+            isLoading={isLoading}
           />
           <Footer />
           <EditProfilePopup
